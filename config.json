@@ -1,0 +1,26 @@
+{
+	"connection" : "mongodb://localhost:27017/bukit",
+    "connectionhq" : "",
+    "security": {
+    	"roles": [
+    		{
+    			"role": "admin",
+    			"privileges": [
+    				"*"
+    			]
+			},
+			{
+    			"role": "user",
+    			"privileges": [
+    				"schedule_modify"    				
+    			]
+			}    		
+    	]	
+    },
+    "admins": [
+        {
+            "username": "qmacpit",
+            "password": "ppp"
+        }
+    ]
+}
