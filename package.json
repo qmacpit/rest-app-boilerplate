@@ -1,0 +1,19 @@
+{
+  "name": "bukit",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "qmacpit",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "body-parser": "^1.14.0",
+    "method-override": "^2.3.5",
+    "errorhandler": "^1.4.2"
+  }
+}
