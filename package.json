@@ -17,6 +17,10 @@
     "errorhandler": "^1.4.2",
     "mongoose": "^4.1.8",
     "q": "^1.4.1",
-    "moment": "^2.10.6"
+    "moment": "^2.10.6",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-http-bearer": "^1.0.1",
+    "node-uuid": "^1.4.3"
   }
 }
