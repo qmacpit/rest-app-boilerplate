@@ -60,6 +60,8 @@ module.exports = {
                 console.log(token);
 
                 User.findOne({ 'token.auth_token' : token }, function (err, user) {
+                    console.log("USER")
+                    console.log(user)
                     if (err) { return done(err); }
                     if (!user) {
                         console.log(user);

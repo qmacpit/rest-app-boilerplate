@@ -53,7 +53,7 @@ module.exports = function(app) {
 	);	
 
 	app.get(
-		REST_PREFIX + "/users", 
+		REST_PREFIX + "users", 
 		showClientRequest, 
     	securityManager.authenticate(securityManager.STRATEGY.LOCAL_AUTHORIZATION),
     	_prepareHandleRequest(userRoute.getUsers)	

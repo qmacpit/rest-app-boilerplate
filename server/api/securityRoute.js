@@ -7,7 +7,7 @@ module.exports = {
         });
     },
     logout: function(req,res) {
-        req.user.auth_token = null;
+        req.user.token.auth_token = "";
         req.user.save(function(err,user){
             if (err){
                 res.send(500, {'message': err});
