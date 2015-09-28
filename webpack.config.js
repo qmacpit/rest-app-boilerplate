@@ -5,7 +5,7 @@ module.exports = {
     // html: "./index.html",
   },
   output: {
-    filename: "./js/boundle.js",
+    filename: "./js/bundle.js",
     path: __dirname + "/client",
   },
   module: {

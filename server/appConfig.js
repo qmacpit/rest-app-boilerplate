@@ -9,11 +9,14 @@ var morgan = require('morgan'),
 
 module.exports = function(app) {
 
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
     app.use(morgan('dev')); // log every request to the console    
     app.use(bodyParser.json()); // get information from html forms
     app.use(express.static(path.join(__dirname, '../client')));    
     app.use(methodOverride());
     app.use(securityManager.initialize());
+
 
     // development only
 	if (app.get('env') === 'development') {
