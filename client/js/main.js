@@ -8,6 +8,7 @@ const history = useBasename(createHistory)({
 })
 
 var App = React.createClass({
+  mixins: [ History ],
   getInitialState() {
     return {
       loggedIn: auth.loggedIn()
@@ -18,6 +19,12 @@ var App = React.createClass({
     this.setState({
       loggedIn: loggedIn
     })
+    if (!loggedIn) 
+       this.history.replaceState(null, '/login')
+  },
+
+  performLogOut() {
+    auth.logout()    
   },
 
   componentWillMount() {
@@ -27,18 +34,16 @@ var App = React.createClass({
 
   render() {
     return (
-      <div>
-        <ul>
-          <li>
+      <div>    
             {this.state.loggedIn ? (
-              <Link to="/logout">Log out</Link>
+              <div>
+                <div><Link to="/about">About</Link></div>
+                <div><Link to="/dashboard">Dashboard</Link></div>
+                <a onClick={this.performLogOut} href="#">Log out</a>
+              </div>
             ) : (
               <Link to="/login">Sign in</Link>
-            )}
-          </li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/dashboard">Dashboard</Link> (authenticated)</li>
-        </ul>
+            )}          
         {this.props.children}
       </div>
     )
@@ -55,6 +60,14 @@ var Dashboard = React.createClass({
         <p>You made it!</p>
         <p>{token}</p>
       </div>
+    )
+  }
+})
+
+var About = React.createClass({
+  render() {
+    return (    
+        <h1>About</h1>        
     )
   }
 })
@@ -83,7 +96,7 @@ var Login = React.createClass({
       if (location.state && location.state.nextPathname) {
         this.history.replaceState(null, location.state.nextPathname)
       } else {
-        this.history.replaceState(null, '/about')
+        this.history.replaceState(null, '/')
       }
     })
   },
@@ -102,22 +115,6 @@ var Login = React.createClass({
   }
 })
 
-var About = React.createClass({
-  render() {
-    return <h1>About</h1>
-  }
-})
-
-var Logout = React.createClass({
-  componentDidMount() {
-    auth.logout()
-  },
-
-  render() {
-    return <p>You are now logged out</p>
-  }
-})
-
 function requireAuth(nextState, replaceState) {
   if (!auth.loggedIn())
     replaceState({ nextPathname: nextState.location.pathname }, '/login')
@@ -125,11 +122,10 @@ function requireAuth(nextState, replaceState) {
 
 React.render((
   <Router history={history}>
-    <Route path="/" component={App}>
-      <Route path="login" component={Login} />
-      <Route path="logout" component={Logout} />
-      <Route path="about" component={About} />
+    <Route path="/" component={App}>       
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
+      <Route path="about" component={About} onEnter={requireAuth} />
     </Route>
+    <Route path="login" component={Login} />
   </Router>
 ), document.body)

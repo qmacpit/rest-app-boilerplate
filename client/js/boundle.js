@@ -67,6 +67,7 @@
 	var App = _react2['default'].createClass({
 	  displayName: 'App',
 
+	  mixins: [_reactRouter.History],
 	  getInitialState: function getInitialState() {
 	    return {
 	      loggedIn: _servicesAuthService2['default'].loggedIn()
@@ -77,6 +78,11 @@
 	    this.setState({
 	      loggedIn: loggedIn
 	    });
+	    if (!loggedIn) this.history.replaceState(null, '/login');
+	  },
+
+	  performLogOut: function performLogOut() {
+	    _servicesAuthService2['default'].logout();
 	  },
 
 	  componentWillMount: function componentWillMount() {
@@ -88,24 +94,11 @@
 	    return _react2['default'].createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
-	        'ul',
+	      this.state.loggedIn ? _react2['default'].createElement(
+	        'div',
 	        null,
 	        _react2['default'].createElement(
-	          'li',
-	          null,
-	          this.state.loggedIn ? _react2['default'].createElement(
-	            _reactRouter.Link,
-	            { to: '/logout' },
-	            'Log out'
-	          ) : _react2['default'].createElement(
-	            _reactRouter.Link,
-	            { to: '/login' },
-	            'Sign in'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          'li',
+	          'div',
 	          null,
 	          _react2['default'].createElement(
 	            _reactRouter.Link,
@@ -114,15 +107,23 @@
 	          )
 	        ),
 	        _react2['default'].createElement(
-	          'li',
+	          'div',
 	          null,
 	          _react2['default'].createElement(
 	            _reactRouter.Link,
 	            { to: '/dashboard' },
 	            'Dashboard'
-	          ),
-	          ' (authenticated)'
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          'a',
+	          { onClick: this.performLogOut, href: '#' },
+	          'Log out'
 	        )
+	      ) : _react2['default'].createElement(
+	        _reactRouter.Link,
+	        { to: '/login' },
+	        'Sign in'
 	      ),
 	      this.props.children
 	    );
@@ -157,6 +158,18 @@
 	  }
 	});
 
+	var About = _react2['default'].createClass({
+	  displayName: 'About',
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'h1',
+	      null,
+	      'About'
+	    );
+	  }
+	});
+
 	var Login = _react2['default'].createClass({
 	  displayName: 'Login',
 
@@ -184,7 +197,7 @@
 	      if (location.state && location.state.nextPathname) {
 	        _this.history.replaceState(null, location.state.nextPathname);
 	      } else {
-	        _this.history.replaceState(null, '/about');
+	        _this.history.replaceState(null, '/');
 	      }
 	    });
 	  },
@@ -218,34 +231,6 @@
 	  }
 	});
 
-	var About = _react2['default'].createClass({
-	  displayName: 'About',
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'h1',
-	      null,
-	      'About'
-	    );
-	  }
-	});
-
-	var Logout = _react2['default'].createClass({
-	  displayName: 'Logout',
-
-	  componentDidMount: function componentDidMount() {
-	    _servicesAuthService2['default'].logout();
-	  },
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'p',
-	      null,
-	      'You are now logged out'
-	    );
-	  }
-	});
-
 	function requireAuth(nextState, replaceState) {
 	  if (!_servicesAuthService2['default'].loggedIn()) replaceState({ nextPathname: nextState.location.pathname }, '/login');
 	}
@@ -256,11 +241,10 @@
 	  _react2['default'].createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: App },
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'login', component: Login }),
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'logout', component: Logout }),
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'about', component: About }),
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'dashboard', component: Dashboard, onEnter: requireAuth })
-	  )
+	    _react2['default'].createElement(_reactRouter.Route, { path: 'dashboard', component: Dashboard, onEnter: requireAuth }),
+	    _react2['default'].createElement(_reactRouter.Route, { path: 'about', component: About, onEnter: requireAuth })
+	  ),
+	  _react2['default'].createElement(_reactRouter.Route, { path: 'login', component: Login })
 	), document.body);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "main.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -26850,9 +26834,10 @@
 	                Authorization: 'Bearer ' + localStorage.getItem("auth_token")
 	            },
 	            accepts: "json"
-	        }).then(function () {
+	        }).then((function () {
 	            localStorage.removeItem("auth_token");
-	        });
+	            this.onChange(false);
+	        }).bind(this));
 	    }
 	};
 

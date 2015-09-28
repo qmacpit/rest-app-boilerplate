@@ -72,6 +72,7 @@ logout: function() {
     })
     .then(function(){
         localStorage.removeItem("auth_token");
-    })
+        this.onChange(false);
+    }.bind(this))
 }  
 };
