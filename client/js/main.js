@@ -1,8 +1,11 @@
 import React, { findDOMNode } from 'react'
 import { Router, Route, Link, History } from 'react-router'
 import { createHistory, useBasename } from 'history'
-import auth from './services/authService'
 
+import auth from './services/authService'
+import Login from './components/login'
+import Dashboard from './components/dashboard'
+import About from './components/about'
 
 const history = useBasename(createHistory)({  
 })
@@ -46,71 +49,6 @@ var App = React.createClass({
             )}          
         {this.props.children}
       </div>
-    )
-  }
-})
-
-var Dashboard = React.createClass({
-  render() {
-    var token = auth.getToken()
-
-    return (
-      <div>
-        <h1>Dashboard</h1>
-        <p>You made it!</p>
-        <p>{token}</p>
-      </div>
-    )
-  }
-})
-
-var About = React.createClass({
-  render() {
-    return (    
-        <h1>About</h1>        
-    )
-  }
-})
-
-var Login = React.createClass({
-  mixins: [ History ],
-
-  getInitialState() {
-    return {
-      error: false
-    }
-  },
-
-  handleSubmit(event) {
-    event.preventDefault()
-
-    var email = findDOMNode(this.refs.email).value
-    var pass = findDOMNode(this.refs.pass).value
-
-    auth.login(email, pass, (loggedIn) => {
-      if (!loggedIn)
-        return this.setState({ error: true })
-
-      var { location } = this.props
-
-      if (location.state && location.state.nextPathname) {
-        this.history.replaceState(null, location.state.nextPathname)
-      } else {
-        this.history.replaceState(null, '/')
-      }
-    })
-  },
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label><input ref="email" placeholder="email" defaultValue="qmacpit" /></label>
-        <label><input ref="pass" placeholder="password" /></label><br />
-        <button type="submit">login</button>
-        {this.state.error && (
-          <p>Bad login information</p>
-        )}
-      </form>
     )
   }
 })

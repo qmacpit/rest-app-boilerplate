@@ -62,6 +62,18 @@
 
 	var _servicesAuthService2 = _interopRequireDefault(_servicesAuthService);
 
+	var _componentsLogin = __webpack_require__(229);
+
+	var _componentsLogin2 = _interopRequireDefault(_componentsLogin);
+
+	var _componentsDashboard = __webpack_require__(230);
+
+	var _componentsDashboard2 = _interopRequireDefault(_componentsDashboard);
+
+	var _componentsAbout = __webpack_require__(231);
+
+	var _componentsAbout2 = _interopRequireDefault(_componentsAbout);
+
 	var history = (0, _history.useBasename)(_history.createHistory)({});
 
 	var App = _react2['default'].createClass({
@@ -130,107 +142,6 @@
 	  }
 	});
 
-	var Dashboard = _react2['default'].createClass({
-	  displayName: 'Dashboard',
-
-	  render: function render() {
-	    var token = _servicesAuthService2['default'].getToken();
-
-	    return _react2['default'].createElement(
-	      'div',
-	      null,
-	      _react2['default'].createElement(
-	        'h1',
-	        null,
-	        'Dashboard'
-	      ),
-	      _react2['default'].createElement(
-	        'p',
-	        null,
-	        'You made it!'
-	      ),
-	      _react2['default'].createElement(
-	        'p',
-	        null,
-	        token
-	      )
-	    );
-	  }
-	});
-
-	var About = _react2['default'].createClass({
-	  displayName: 'About',
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'h1',
-	      null,
-	      'About'
-	    );
-	  }
-	});
-
-	var Login = _react2['default'].createClass({
-	  displayName: 'Login',
-
-	  mixins: [_reactRouter.History],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      error: false
-	    };
-	  },
-
-	  handleSubmit: function handleSubmit(event) {
-	    var _this = this;
-
-	    event.preventDefault();
-
-	    var email = (0, _react.findDOMNode)(this.refs.email).value;
-	    var pass = (0, _react.findDOMNode)(this.refs.pass).value;
-
-	    _servicesAuthService2['default'].login(email, pass, function (loggedIn) {
-	      if (!loggedIn) return _this.setState({ error: true });
-
-	      var location = _this.props.location;
-
-	      if (location.state && location.state.nextPathname) {
-	        _this.history.replaceState(null, location.state.nextPathname);
-	      } else {
-	        _this.history.replaceState(null, '/');
-	      }
-	    });
-	  },
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'form',
-	      { onSubmit: this.handleSubmit },
-	      _react2['default'].createElement(
-	        'label',
-	        null,
-	        _react2['default'].createElement('input', { ref: 'email', placeholder: 'email', defaultValue: 'qmacpit' })
-	      ),
-	      _react2['default'].createElement(
-	        'label',
-	        null,
-	        _react2['default'].createElement('input', { ref: 'pass', placeholder: 'password' })
-	      ),
-	      _react2['default'].createElement('br', null),
-	      _react2['default'].createElement(
-	        'button',
-	        { type: 'submit' },
-	        'login'
-	      ),
-	      this.state.error && _react2['default'].createElement(
-	        'p',
-	        null,
-	        'Bad login information'
-	      )
-	    );
-	  }
-	});
-
 	function requireAuth(nextState, replaceState) {
 	  if (!_servicesAuthService2['default'].loggedIn()) replaceState({ nextPathname: nextState.location.pathname }, '/login');
 	}
@@ -241,10 +152,10 @@
 	  _react2['default'].createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: App },
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'dashboard', component: Dashboard, onEnter: requireAuth }),
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'about', component: About, onEnter: requireAuth })
+	    _react2['default'].createElement(_reactRouter.Route, { path: 'dashboard', component: _componentsDashboard2['default'], onEnter: requireAuth }),
+	    _react2['default'].createElement(_reactRouter.Route, { path: 'about', component: _componentsAbout2['default'], onEnter: requireAuth })
 	  ),
-	  _react2['default'].createElement(_reactRouter.Route, { path: 'login', component: Login })
+	  _react2['default'].createElement(_reactRouter.Route, { path: 'login', component: _componentsLogin2['default'] })
 	), document.body);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "main.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -26842,6 +26753,187 @@
 	};
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "authService.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 228 */,
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(157);
+
+	var _servicesAuthService = __webpack_require__(227);
+
+	var _servicesAuthService2 = _interopRequireDefault(_servicesAuthService);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'login',
+
+	  mixins: [_reactRouter.History],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      error: false
+	    };
+	  },
+
+	  handleSubmit: function handleSubmit(event) {
+	    var _this = this;
+
+	    event.preventDefault();
+
+	    var email = (0, _react.findDOMNode)(this.refs.email).value;
+	    var pass = (0, _react.findDOMNode)(this.refs.pass).value;
+
+	    _servicesAuthService2['default'].login(email, pass, function (loggedIn) {
+	      if (!loggedIn) return _this.setState({ error: true });
+
+	      var location = _this.props.location;
+
+	      if (location.state && location.state.nextPathname) {
+	        _this.history.replaceState(null, location.state.nextPathname);
+	      } else {
+	        _this.history.replaceState(null, '/');
+	      }
+	    });
+	  },
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'form',
+	      { onSubmit: this.handleSubmit },
+	      _react2['default'].createElement(
+	        'label',
+	        null,
+	        _react2['default'].createElement('input', { ref: 'email', placeholder: 'email', defaultValue: 'qmacpit' })
+	      ),
+	      _react2['default'].createElement(
+	        'label',
+	        null,
+	        _react2['default'].createElement('input', { ref: 'pass', placeholder: 'password' })
+	      ),
+	      _react2['default'].createElement('br', null),
+	      _react2['default'].createElement(
+	        'button',
+	        { type: 'submit' },
+	        'login'
+	      ),
+	      this.state.error && _react2['default'].createElement(
+	        'p',
+	        null,
+	        'Bad login information'
+	      )
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "login.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _servicesAuthService = __webpack_require__(227);
+
+	var _servicesAuthService2 = _interopRequireDefault(_servicesAuthService);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'dashboard',
+
+	  render: function render() {
+	    var token = _servicesAuthService2['default'].getToken();
+
+	    return _react2['default'].createElement(
+	      'div',
+	      null,
+	      _react2['default'].createElement(
+	        'h1',
+	        null,
+	        'Dashboard'
+	      ),
+	      _react2['default'].createElement(
+	        'p',
+	        null,
+	        'You made it!'
+	      ),
+	      _react2['default'].createElement(
+	        'p',
+	        null,
+	        token
+	      )
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "dashboard.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _servicesAuthService = __webpack_require__(227);
+
+	var _servicesAuthService2 = _interopRequireDefault(_servicesAuthService);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'about',
+
+	  render: function render() {
+	    var token = _servicesAuthService2['default'].getToken();
+
+	    return _react2['default'].createElement(
+	      'h1',
+	      null,
+	      'About'
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/qmacpit/code/priv/rest-app-boilerplate/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "about.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }
 /******/ ]);
