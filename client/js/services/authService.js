@@ -2,7 +2,9 @@ module.exports = {
   loggedIn: function() {
     console.log("loggedIn")
     console.log(this.getToken() !== undefined)
-    return this.getToken() !== undefined;
+    var token = this.getToken();
+    return token !== undefined 
+            && token !== null;
   },  
   getToken: function() {
     return localStorage.getItem("auth_token");
@@ -46,7 +48,7 @@ module.exports = {
         this.onChange(true);
         if (callback)
          callback(true);
-    });
+    }.bind(this));
 },
 check: function() {
     

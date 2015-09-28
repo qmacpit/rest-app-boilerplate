@@ -4,8 +4,7 @@ import { createHistory, useBasename } from 'history'
 import auth from './services/authService'
 
 
-const history = useBasename(createHistory)({
-  basename: '/auth-flow'
+const history = useBasename(createHistory)({  
 })
 
 var App = React.createClass({
@@ -92,8 +91,8 @@ var Login = React.createClass({
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label><input ref="email" placeholder="email" defaultValue="joe@example.com" /></label>
-        <label><input ref="pass" placeholder="password" /></label> (hint: password1)<br />
+        <label><input ref="email" placeholder="email" defaultValue="qmacpit" /></label>
+        <label><input ref="pass" placeholder="password" /></label><br />
         <button type="submit">login</button>
         {this.state.error && (
           <p>Bad login information</p>
