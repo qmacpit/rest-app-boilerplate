@@ -1,2 +1,4 @@
 node_modules
+*.map
+*.log
 client/js/lib/**
