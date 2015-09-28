@@ -45,7 +45,8 @@ module.exports = {
     .then(function(data){
         console.log(data)
         localStorage.setItem("auth_token", data.auth_token);
-        this.onChange(true);
+        if (this.onChange)
+            this.onChange(true);
         if (callback)
          callback(true);
     }.bind(this));
