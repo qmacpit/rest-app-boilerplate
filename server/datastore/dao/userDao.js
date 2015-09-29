@@ -3,9 +3,7 @@ var CryptoJS = require("crypto-js/pbkdf2");
 
 module.exports = {
 	createUser: function(user) {
-        console.log("createUser")
-        console.log(user);
-		return User.findOne({ 
+        return User.findOne({ 
         	username: user.username
         })
         .exec()
