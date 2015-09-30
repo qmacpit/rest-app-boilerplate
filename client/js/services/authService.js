@@ -49,17 +49,6 @@ module.exports = {
          callback(true);
     }.bind(this));
 },
-check: function() {
-    
-    $.ajax({
-        url: "/api/v1/users",
-        cache: false,        
-        headers: {
-            Authorization: 'Bearer '+ localStorage.getItem("auth_token")
-        },
-        accepts: "json"
-    });
-},
 logout: function() {
     $.ajax({
         url: "/api/v1/logout",

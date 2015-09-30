@@ -6,6 +6,8 @@ import auth from './services/authService'
 import Login from './components/login'
 import Dashboard from './components/dashboard'
 import About from './components/about'
+import Users from './components/users'
+import UserDetails from './components/userDetails'
 
 const history = useBasename(createHistory)({  
 })
@@ -42,6 +44,7 @@ var App = React.createClass({
               <div>
                 <div><Link to="/about">About</Link></div>
                 <div><Link to="/dashboard">Dashboard</Link></div>
+                <div><Link to="/users">Users</Link></div>
                 <a onClick={this.performLogOut} href="#">Log out</a>
               </div>
             ) : (
@@ -61,8 +64,11 @@ function requireAuth(nextState, replaceState) {
 React.render((
   <Router history={history}>
     <Route path="/" component={App}>       
-      <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
+      <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />      
       <Route path="about" component={About} onEnter={requireAuth} />
+      <Route path="users" component={Users} onEnter={requireAuth}> 
+        <Route path="/users/add" component={UserDetails} onEnter={requireAuth}/>
+      </Route>      
     </Route>
     <Route path="login" component={Login} />
   </Router>
