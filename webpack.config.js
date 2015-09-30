@@ -7,10 +7,6 @@ module.exports = {
     'webpack/hot/only-dev-server',
     "./js/main.js"
   ],
-  // entry: {
-  //   javascript: "./js/main.js",
-  //   // html: "./index.html",
-  // },
   output: {
     filename: "./js/bundle.js",
     path: __dirname + "/client",
@@ -24,8 +20,17 @@ module.exports = {
       }
     ],
   },
+  resolve: {
+    alias: {      
+      jquery: __dirname + "/client/js/lib/jquery/dist/jquery.js"
+    }
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
+    })
   ]
 }

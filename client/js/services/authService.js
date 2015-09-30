@@ -1,7 +1,5 @@
 module.exports = {
-  loggedIn: function() {
-    console.log("loggedIn")
-    console.log(this.getToken() !== undefined)
+  loggedIn: function() {    
     var token = this.getToken();
     return token !== undefined 
             && token !== null;
