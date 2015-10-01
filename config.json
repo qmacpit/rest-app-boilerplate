@@ -21,6 +21,10 @@
         {
             "username": "qmacpit",
             "password": "ppp"
+        },
+        {
+            "username": "dummy",
+            "password": "dummy"
         }
     ]
 }

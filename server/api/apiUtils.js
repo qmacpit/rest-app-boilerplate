@@ -10,7 +10,7 @@ module.exports = {
     },
     prepareHandleRequest: function(func) {
         return function(req, res) {
-            func()
+            func(req)
             .then(function(data){
                return res.json(data);    
             })

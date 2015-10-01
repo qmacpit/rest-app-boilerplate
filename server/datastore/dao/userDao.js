@@ -25,6 +25,13 @@ module.exports = {
 		user.password = CryptoJS(user.password, user.username, { keySize: 256/32 }).toString();
 		return this.createUser(user);
 	},
+    getUserById: function(id) {        
+        return User.findOne({ 
+            _id: id
+        })
+        .select('username role')
+        .exec();
+    },
 	// removeUsers: function(criteria){
 	// 	return User.remove(criteria).exec();
 	// },
@@ -33,9 +40,9 @@ module.exports = {
         .select('username role')
         .exec();
     },
- //    update: function(user) {
- //        return User.update({ '_id': user._id}, {            
- //            password: user.password 
- //        }).exec();
- //    },
+    updateUser: function(user) {
+        return User.update({ '_id': user._id}, {            
+            role: user.role
+        }).exec();
+    },
 }

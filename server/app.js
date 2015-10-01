@@ -17,11 +17,11 @@ app.listen(port, function () {
     	? config.connection
     	: connectionhq
 	)
-	.then(_initDb)
+  .then(_initDb)
   .then(_initDevEnv)
-	.fail(function(err){
-		console.log(err);
-	})
+  .fail(function(err){
+    console.log(err);
+  })
 });
 
 function _initDb() {

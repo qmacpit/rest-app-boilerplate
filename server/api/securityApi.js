@@ -12,7 +12,9 @@ module.exports = function(app) {
             });
         },
         logout: function(req,res) {
-            req.user.token.auth_token = "";
+            if (!req.user || !req.user.token)
+                return res.sendStatus(200);
+                            
             req.user.save(function(err,user){
                 if (err){
                     res.send(500, {'message': err});
@@ -31,8 +33,7 @@ module.exports = function(app) {
 
     app.get(
         apiUtils.REST_PREFIX + 'logout', 
-        apiUtils.showClientRequest, 
-        securityManager.authenticate(securityManager.STRATEGY.LOCAL_AUTHORIZATION),
+        apiUtils.showClientRequest,         
         api.logout
     );  
 };

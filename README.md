@@ -9,7 +9,7 @@ simple react client side app with express.io REST supprt feat.:
 ### development
 ```bash
 npm start
-npm start_dev
+npm run-script start_dev
 ```
 hot reload: http://localhost:3001/webpack-dev-server/
 application: http://localhost:3000

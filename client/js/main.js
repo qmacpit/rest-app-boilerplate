@@ -68,6 +68,7 @@ React.render((
       <Route path="about" component={About} onEnter={requireAuth} />
       <Route path="users" component={Users} onEnter={requireAuth}> 
         <Route path="/users/add" component={UserDetails} onEnter={requireAuth}/>
+        <Route path="/users/:id/edit" component={UserDetails} onEnter={requireAuth}/>
       </Route>      
     </Route>
     <Route path="login" component={Login} />

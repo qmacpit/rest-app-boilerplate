@@ -2,13 +2,18 @@ var webpack = require('webpack');
 
 module.exports = {
   context: __dirname + "/client",
-  entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3001', // WebpackDevServer host and port
-    'webpack/hot/only-dev-server',
-    "./js/main.js"
-  ],
+  entry: {
+    dev: [
+      'webpack-dev-server/client?http://0.0.0.0:3001', // WebpackDevServer host and port
+      'webpack/hot/only-dev-server',
+      "./js/main.js"
+    ],
+    // prod: [
+    //   "./js/main.js"
+    // ]
+  },    
   output: {
-    filename: "./js/bundle.js",
+    filename: "./js/bundle.[name].js",
     path: __dirname + "/client",
   },
   module: {
