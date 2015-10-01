@@ -28,9 +28,9 @@ export default React.createClass({
     console.log(index)    
   },
 
-  getSelectedUrl() {
+  getSelectedUrl(isEdit) {
     if (this.state.users.length && this.state.selectedIndex >= 0) {      
-      return "/users/" + this.state.users[this.state.selectedIndex]._id + "/edit";  
+      return "/users/" + this.state.users[this.state.selectedIndex]._id;      
     }
     return "";
   },
@@ -59,7 +59,7 @@ export default React.createClass({
         </table>         
         <Link to="/users/add">add user</Link>        
         <Link to={this.getSelectedUrl()} query={{ mode: "edit" }}>edit user</Link>
-        <Link to={this.getSelectedUrl()} query={{ mode: "display" }}>display user</Link>
+        <Link to={this.getSelectedUrl()}>display user</Link>
         {this.props.children}
       </div>
     )

@@ -29,5 +29,8 @@ module.exports = {
       },    
       contentType: "application/json"      
     })
+  },
+  createUser(user) {
+    console.log("creating user")
   }
 };

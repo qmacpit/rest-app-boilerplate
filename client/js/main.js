@@ -8,6 +8,7 @@ import Dashboard from './components/dashboard'
 import About from './components/about'
 import Users from './components/users'
 import UserDetails from './components/userDetails'
+import UserDetailsAdd from './components/userDetailsAdd'
 
 const history = useBasename(createHistory)({  
 })
@@ -67,8 +68,8 @@ React.render((
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />      
       <Route path="about" component={About} onEnter={requireAuth} />
       <Route path="users" component={Users} onEnter={requireAuth}> 
-        <Route path="/users/add" component={UserDetails} onEnter={requireAuth}/>
-        <Route path="/users/:id/edit" component={UserDetails} onEnter={requireAuth}/>
+        <Route path="/users/add" component={UserDetailsAdd} onEnter={requireAuth}/>
+        <Route path="/users/:id" component={UserDetails} onEnter={requireAuth}/>      
       </Route>      
     </Route>
     <Route path="login" component={Login} />
