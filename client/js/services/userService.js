@@ -1,3 +1,5 @@
+import toolbox from '../toolbox/toolbox'
+
 module.exports = {
 	get: function() {
 		return $.ajax({
@@ -28,9 +30,19 @@ module.exports = {
         Authorization: 'Bearer '+ localStorage.getItem("auth_token")
       },    
       contentType: "application/json"      
-    })
+    });
   },
   createUser(user) {
-    console.log("creating user")
+    user.password = toolbox.hashPassword(user.username, user.password);
+    return $.ajax({
+      type: "PUT",
+      url: "/api/v1/user",
+      data: JSON.stringify(user),  
+      headers: {
+        Authorization: 'Bearer '+ localStorage.getItem("auth_token")
+      },    
+      contentType: "application/json"      
+    });
+
   }
 };

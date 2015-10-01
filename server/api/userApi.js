@@ -12,6 +12,9 @@ module.exports = function(app) {
         },
         updateUser: function(req) {
             return userDao.updateUser(req.body);
+        },
+        createUser: function(req) {
+            return userDao.createUser(req.body);
         }
     };
 
@@ -34,5 +37,12 @@ module.exports = function(app) {
         apiUtils.showClientRequest, 
         securityManager.authenticate(securityManager.STRATEGY.LOCAL_AUTHORIZATION),
         apiUtils.prepareHandleRequest(api.updateUser) 
+    );
+
+    app.put(
+        apiUtils.REST_PREFIX + "user", 
+        apiUtils.showClientRequest, 
+        securityManager.authenticate(securityManager.STRATEGY.LOCAL_AUTHORIZATION),
+        apiUtils.prepareHandleRequest(api.createUser) 
     );
 };

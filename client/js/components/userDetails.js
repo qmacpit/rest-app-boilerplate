@@ -1,9 +1,12 @@
 import React from 'react';
+import { History } from 'react-router';
 
 import userService from '../services/userService';
 import template from '../template';
 
 export default React.createClass({
+
+  mixins: [ History ],
 
   componentDidMount() {
       this.fetchUserData(this.props.params.id);    
@@ -29,6 +32,7 @@ export default React.createClass({
       console.log(this.state.user)
       return userService.saveUser(this.state.user);  
     }        
+    this.history.goBack();
   },
 
   onUserFormChange(key) {

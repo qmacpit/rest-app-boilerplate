@@ -1,3 +1,5 @@
+import toolbox from '../toolbox/toolbox'
+
 module.exports = {
   loggedIn: function() {    
     var token = this.getToken();
@@ -27,10 +29,13 @@ module.exports = {
         return;   
     }
 
-    var salt = username;
-    var enc_password = CryptoJS.PBKDF2(password, salt, { keySize: 256/32 });
+    // var salt = username;
+    // var enc_password = CryptoJS.PBKDF2(password, salt, { keySize: 256/32 });
 
-    var user = {"username": username, "password": enc_password.toString()};
+    var user = {
+        "username": username, 
+        "password": toolbox.hashPassword(username, password)
+    };
 
     //$.post("/api/v1/login", user)
     
