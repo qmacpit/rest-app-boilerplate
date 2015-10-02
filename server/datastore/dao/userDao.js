@@ -14,8 +14,7 @@ module.exports = {
         var newUser = new User({ 
             username: user.username,
             role: user.role, 
-            password: user.password,
-            privileges: user.privileges
+            password: user.password
         });
         return newUser.save();
       }

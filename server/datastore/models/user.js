@@ -6,8 +6,7 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     username: String,
     password: String,
-    role: String,
-    privileges: [String],
+    role: String,    
     token : {
         auth_token: String,
         createDate: {type: Date, required: true, default: moment()}
