@@ -1,4 +1,5 @@
 import toolbox from '../toolbox/toolbox'
+import ajax from '../toolbox/ajax'
 
 module.exports = {
   loggedIn: function() {    
@@ -29,15 +30,10 @@ module.exports = {
         return;   
     }
 
-    // var salt = username;
-    // var enc_password = CryptoJS.PBKDF2(password, salt, { keySize: 256/32 });
-
     var user = {
         "username": username, 
         "password": toolbox.hashPassword(username, password)
     };
-
-    //$.post("/api/v1/login", user)
     
     $.ajax({
       type: "POST",
@@ -45,27 +41,19 @@ module.exports = {
       data: JSON.stringify(user),      
       contentType: "application/json"      
     })
-    .then(function(data){
-        console.log(data)
+    .then(function(data){        
         localStorage.setItem("auth_token", data.auth_token);
         if (this.onChange)
             this.onChange(true);
         if (callback)
          callback(true);
     }.bind(this));
-},
-logout: function() {
-    $.ajax({
-        url: "/api/v1/logout",
-        cache: false,
-        headers: {
-            Authorization: 'Bearer '+ localStorage.getItem("auth_token")
-        },
-        accepts: "json"
-    })
-    .then(function(){
-        localStorage.removeItem("auth_token");
-        this.onChange(false);
-    }.bind(this))
-}  
+  },
+  logout: function() {
+      ajax.get("/api/v1/logout")
+      .then(function(){
+          localStorage.removeItem("auth_token");
+          this.onChange(false);
+      }.bind(this))
+  }  
 };

@@ -1,48 +1,18 @@
-import toolbox from '../toolbox/toolbox'
+import toolbox from '../toolbox/toolbox';
+import ajax from '../toolbox/ajax';
 
 module.exports = {
 	get: function() {
-		return $.ajax({
-    	url: "/api/v1/users",
-    	cache: false,        
-    	headers: {
-      	Authorization: 'Bearer '+ localStorage.getItem("auth_token")
-    	},
-    	accepts: "json"
-  	});
+		return ajax.get("/api/v1/users");
 	},
   getUserData(_id) {
-    return $.ajax({
-      url: "/api/v1/user/" + _id,
-      cache: false,        
-      headers: {
-        Authorization: 'Bearer '+ localStorage.getItem("auth_token")
-      },
-      accepts: "json"
-    });
+    return ajax.get("/api/v1/user/" + _id);    
   },
   saveUser(user) {
-    return $.ajax({
-      type: "POST",
-      url: "/api/v1/user",
-      data: JSON.stringify(user),  
-      headers: {
-        Authorization: 'Bearer '+ localStorage.getItem("auth_token")
-      },    
-      contentType: "application/json"      
-    });
+    return ajax.post("/api/v1/user", user);    
   },
   createUser(user) {
     user.password = toolbox.hashPassword(user.username, user.password);
-    return $.ajax({
-      type: "PUT",
-      url: "/api/v1/user",
-      data: JSON.stringify(user),  
-      headers: {
-        Authorization: 'Bearer '+ localStorage.getItem("auth_token")
-      },    
-      contentType: "application/json"      
-    });
-
+    return ajax.put("/api/v1/user", user);    
   }
 };
