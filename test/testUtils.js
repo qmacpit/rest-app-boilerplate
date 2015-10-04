@@ -6,6 +6,9 @@ module.exports = {
 	request: function() {
 		return request("http://localhost:3000/api/v1");
 	},
+	getHashedPassword: function(username, password) {
+		return CryptoJS(password, username, { keySize: 256/32 }).toString();
+	},
 	getToken: function(username, password) {
 		var deferred = q.defer();
 		password = CryptoJS(password, username, { keySize: 256/32 }).toString();
@@ -60,5 +63,21 @@ module.exports = {
 	        deferred.resolve(res);
 	      });
 	    return deferred.promise;
+	},
+	putJsonAuth: function(url, data, auth_token) {
+		var deferred = q.defer();
+		this.request()
+    .put(url)
+    .set('Content-Type', 'application/json')
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer '+ auth_token)      
+    .send(JSON.stringify(data))  
+    .expect(200)
+    .end(function(err, res){	      		      	
+      if (err) return deferred.reject(err);
+      deferred.resolve(res);
+    });
+
+    return deferred.promise;
 	}
 };
