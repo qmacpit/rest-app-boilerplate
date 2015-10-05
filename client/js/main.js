@@ -7,6 +7,7 @@ import Login from './components/login'
 import Dashboard from './components/dashboard'
 import About from './components/about'
 import Users from './components/users'
+import Menu from './components/menu'
 import UserDetails from './components/userDetails'
 import UserDetailsAdd from './components/userDetailsAdd'
 
@@ -41,16 +42,15 @@ var App = React.createClass({
   render() {
     return (
       <div>    
-            {this.state.loggedIn ? (
-              <div>
-                <div><Link to="/about">About</Link></div>
-                <div><Link to="/dashboard">Dashboard</Link></div>
-                <div><Link to="/users">Users</Link></div>
-                <a onClick={this.performLogOut} href="#">Log out</a>
-              </div>
-            ) : (
-              <Link to="/login">Sign in</Link>
-            )}          
+        {
+          this.state.loggedIn 
+          ? (
+            <Menu initialContex="admin" onLogout={this.performLogOut.bind(this)}/>
+          ) 
+          : (
+            <Link to="/login">Sign in</Link>
+          )
+        }          
         {this.props.children}
       </div>
     )

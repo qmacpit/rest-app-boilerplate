@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "727f613358fcfe9f0caa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ab07057e03a9370ba236"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -9406,27 +9406,27 @@
 
 	var _servicesAuthService2 = _interopRequireDefault(_servicesAuthService);
 
-	var _componentsLogin = __webpack_require__(304);
+	var _componentsLogin = __webpack_require__(305);
 
 	var _componentsLogin2 = _interopRequireDefault(_componentsLogin);
 
-	var _componentsDashboard = __webpack_require__(305);
+	var _componentsDashboard = __webpack_require__(306);
 
 	var _componentsDashboard2 = _interopRequireDefault(_componentsDashboard);
 
-	var _componentsAbout = __webpack_require__(306);
+	var _componentsAbout = __webpack_require__(307);
 
 	var _componentsAbout2 = _interopRequireDefault(_componentsAbout);
 
-	var _componentsUsers = __webpack_require__(307);
+	var _componentsUsers = __webpack_require__(308);
 
 	var _componentsUsers2 = _interopRequireDefault(_componentsUsers);
 
-	var _componentsUserDetails = __webpack_require__(311);
+	var _componentsUserDetails = __webpack_require__(312);
 
 	var _componentsUserDetails2 = _interopRequireDefault(_componentsUserDetails);
 
-	var _componentsUserDetailsAdd = __webpack_require__(313);
+	var _componentsUserDetailsAdd = __webpack_require__(314);
 
 	var _componentsUserDetailsAdd2 = _interopRequireDefault(_componentsUserDetailsAdd);
 
@@ -36458,13 +36458,17 @@
 
 	/* WEBPACK VAR INJECTION */(function(module, $) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
-	"use strict";
+	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	var _toolboxToolbox = __webpack_require__(303);
 
 	var _toolboxToolbox2 = _interopRequireDefault(_toolboxToolbox);
+
+	var _toolboxAjax = __webpack_require__(304);
+
+	var _toolboxAjax2 = _interopRequireDefault(_toolboxAjax);
 
 	module.exports = {
 	    loggedIn: function loggedIn() {
@@ -36492,15 +36496,10 @@
 	            return;
 	        }
 
-	        // var salt = username;
-	        // var enc_password = CryptoJS.PBKDF2(password, salt, { keySize: 256/32 });
-
 	        var user = {
 	            "username": username,
-	            "password": _toolboxToolbox2["default"].hashPassword(username, password)
+	            "password": _toolboxToolbox2['default'].hashPassword(username, password)
 	        };
-
-	        //$.post("/api/v1/login", user)
 
 	        $.ajax({
 	            type: "POST",
@@ -36508,21 +36507,13 @@
 	            data: JSON.stringify(user),
 	            contentType: "application/json"
 	        }).then((function (data) {
-	            console.log(data);
 	            localStorage.setItem("auth_token", data.auth_token);
 	            if (this.onChange) this.onChange(true);
 	            if (callback) callback(true);
 	        }).bind(this));
 	    },
 	    logout: function logout() {
-	        $.ajax({
-	            url: "/api/v1/logout",
-	            cache: false,
-	            headers: {
-	                Authorization: 'Bearer ' + localStorage.getItem("auth_token")
-	            },
-	            accepts: "json"
-	        }).then((function () {
+	        _toolboxAjax2['default'].get("/api/v1/logout").then((function () {
 	            localStorage.removeItem("auth_token");
 	            this.onChange(false);
 	        }).bind(this));
@@ -38144,6 +38135,56 @@
 /* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module, $) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	"use strict";
+
+	function _getAuthorizationHeader() {
+	  return 'Bearer ' + localStorage.getItem("auth_token");
+	}
+
+	function _ajax(params) {
+	  var params = $.extend({}, {
+	    cache: false,
+	    headers: {
+	      Authorization: _getAuthorizationHeader()
+	    },
+	    accepts: "application/json",
+	    contentType: "application/json"
+	  }, params);
+	  console.log(params);
+	  return $.ajax(params);
+	}
+
+	module.exports = {
+	  get: function get(url) {
+	    return _ajax({
+	      url: url
+	    });
+	  },
+	  post: function post(url, data) {
+	    return _ajax({
+	      type: 'POST',
+	      url: url,
+	      data: typeof data === "object" ? JSON.stringify(data) : data
+	    });
+	  },
+	  put: function put(url, data) {
+	    return _ajax({
+	      type: 'PUT',
+	      url: url,
+	      data: typeof data === "object" ? JSON.stringify(data) : data
+	    });
+	  }
+	};
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(300); if (makeExportsHot(module, __webpack_require__(126))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ajax.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module), __webpack_require__(299)))
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
@@ -38230,7 +38271,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38284,7 +38325,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38324,7 +38365,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38343,11 +38384,11 @@
 
 	var _reactRouter = __webpack_require__(228);
 
-	var _servicesUserService = __webpack_require__(308);
+	var _servicesUserService = __webpack_require__(309);
 
 	var _servicesUserService2 = _interopRequireDefault(_servicesUserService);
 
-	var _mixinsSelectable = __webpack_require__(309);
+	var _mixinsSelectable = __webpack_require__(310);
 
 	var _mixinsSelectable2 = _interopRequireDefault(_mixinsSelectable);
 
@@ -38453,10 +38494,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module, $) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -38466,64 +38507,38 @@
 
 	var _toolboxToolbox2 = _interopRequireDefault(_toolboxToolbox);
 
+	var _toolboxAjax = __webpack_require__(304);
+
+	var _toolboxAjax2 = _interopRequireDefault(_toolboxAjax);
+
 	module.exports = {
 	  get: function get() {
-	    return $.ajax({
-	      url: "/api/v1/users",
-	      cache: false,
-	      headers: {
-	        Authorization: 'Bearer ' + localStorage.getItem("auth_token")
-	      },
-	      accepts: "json"
-	    });
+	    return _toolboxAjax2['default'].get("/api/v1/users");
 	  },
 	  getUserData: function getUserData(_id) {
-	    return $.ajax({
-	      url: "/api/v1/user/" + _id,
-	      cache: false,
-	      headers: {
-	        Authorization: 'Bearer ' + localStorage.getItem("auth_token")
-	      },
-	      accepts: "json"
-	    });
+	    return _toolboxAjax2['default'].get("/api/v1/user/" + _id);
 	  },
 	  saveUser: function saveUser(user) {
-	    return $.ajax({
-	      type: "POST",
-	      url: "/api/v1/user",
-	      data: JSON.stringify(user),
-	      headers: {
-	        Authorization: 'Bearer ' + localStorage.getItem("auth_token")
-	      },
-	      contentType: "application/json"
-	    });
+	    return _toolboxAjax2['default'].post("/api/v1/user", user);
 	  },
 	  createUser: function createUser(user) {
 	    user.password = _toolboxToolbox2['default'].hashPassword(user.username, user.password);
-	    return $.ajax({
-	      type: "PUT",
-	      url: "/api/v1/user",
-	      data: JSON.stringify(user),
-	      headers: {
-	        Authorization: 'Bearer ' + localStorage.getItem("auth_token")
-	      },
-	      contentType: "application/json"
-	    });
+	    return _toolboxAjax2['default'].put("/api/v1/user", user);
 	  }
 	};
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(300); if (makeExportsHot(module, __webpack_require__(126))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "userService.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module), __webpack_require__(299)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
-	var ClassNames = __webpack_require__(310);
+	var ClassNames = __webpack_require__(311);
 
 	module.exports = {
 	  bindHandler: function bindHandler(fn, context, index) {
@@ -38553,7 +38568,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -38607,7 +38622,7 @@
 
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38626,11 +38641,11 @@
 
 	var _reactRouter = __webpack_require__(228);
 
-	var _servicesUserService = __webpack_require__(308);
+	var _servicesUserService = __webpack_require__(309);
 
 	var _servicesUserService2 = _interopRequireDefault(_servicesUserService);
 
-	var _template = __webpack_require__(312);
+	var _template = __webpack_require__(313);
 
 	var _template2 = _interopRequireDefault(_template);
 
@@ -38727,7 +38742,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38754,7 +38769,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 313 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(62), RootInstanceProvider = __webpack_require__(70), ReactMount = __webpack_require__(72), React = __webpack_require__(126); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38771,11 +38786,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _servicesUserService = __webpack_require__(308);
+	var _servicesUserService = __webpack_require__(309);
 
 	var _servicesUserService2 = _interopRequireDefault(_servicesUserService);
 
-	var _template = __webpack_require__(312);
+	var _template = __webpack_require__(313);
 
 	var _template2 = _interopRequireDefault(_template);
 
