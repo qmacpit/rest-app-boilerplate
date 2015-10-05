@@ -10,12 +10,11 @@ module.exports = {
     .then(function(existingUser){
 			if (existingUser) {
         throw new Error('User already exists');
-      } else {
+      } else {        
         var newUser = new User({ 
             username: user.username,
             role: user.role, 
-            password: user.password,
-            privileges: user.privileges
+            password: user.password
         });
         return newUser.save();
       }

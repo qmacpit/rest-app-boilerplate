@@ -1,4 +1,5 @@
 var userDao = require('../datastore/dao/userDao');
+var roleDao = require('../datastore/dao/roleDao');
 var securityManager = require('../core/securityManager');
 var apiUtils = require('./apiUtils');
 
@@ -15,6 +16,9 @@ module.exports = function(app) {
         },
         createUser: function(req) {
             return userDao.createUser(req.body);
+        },
+        getRoles: function(req, res) {            
+            return res.json(roleDao.getRoles()); 
         }
     };
 
@@ -44,5 +48,12 @@ module.exports = function(app) {
         apiUtils.showClientRequest, 
         securityManager.authenticate(securityManager.STRATEGY.LOCAL_AUTHORIZATION),
         apiUtils.prepareHandleRequest(api.createUser) 
+    );
+
+    app.get(
+        apiUtils.REST_PREFIX + "roles", 
+        apiUtils.showClientRequest, 
+        //securityManager.authenticate(securityManager.STRATEGY.LOCAL_AUTHORIZATION),
+        api.getRoles
     );
 };

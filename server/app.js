@@ -1,6 +1,8 @@
 var express  = require('express');
 var q = require('q');
+
 var userDao = require('./datastore/dao/userDao');
+var roleDao = require('./datastore/dao/roleDao');
 
 var port = process.env.PORT || 3000,
     ip = process.env.IP || "localhost",
@@ -27,19 +29,16 @@ app.listen(port, function () {
 function _initDb() {
   var roles = config.security.roles,
       i = 0, l = roles.length,
-      adminRole;
+      adminRole, currentRole;
       
-  for (; i < l; i++) {            
-    if (roles[i].role === "admin") {
-      adminRole = roles[i];
-      break;
-    }
+  for (; i < l; i++) {    
+    currentRole = roles[i];
+    roleDao.createRole(currentRole.role, currentRole.privileges);       
   }
   
   return q.all(
     config.admins.map(function(admin) {     
-      admin.role = "admin";
-      admin.privileges = adminRole.privileges;      
+      admin.role = "admin";      
       userDao.createAndHashUser(admin);
     })
   );
