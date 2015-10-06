@@ -24,9 +24,7 @@ module.exports = function(app) {
     	saveUninitialized: true
 	 }));
     
-   //  app.use(securityManager.session({ secret: 'keyboard cat' }));
-  	// app.use(securityManager.session());
-	app.use(securityManager.initialize());
+   	app.use(securityManager.initialize());
 	app.use(securityManager.session());
 
     // development only
