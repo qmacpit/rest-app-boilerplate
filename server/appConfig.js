@@ -1,7 +1,9 @@
 var morgan = require('morgan'),
 	bodyParser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
 	methodOverride = require('method-override'),
 	express = require('express'),
+	session = require('express-session'),
 	passport = require('passport'),
 	errorhandler = require('errorhandler'),
 	path = require('path'),
@@ -15,8 +17,17 @@ module.exports = function(app) {
     app.use(bodyParser.json()); // get information from html forms
     app.use(express.static(path.join(__dirname, '../client')));    
     app.use(methodOverride());
-    app.use(securityManager.initialize());
-
+    app.use(cookieParser());
+    app.use(session({ 
+    	secret: 'keyboard cat',
+    	resave: true,
+    	saveUninitialized: true
+	 }));
+    
+   //  app.use(securityManager.session({ secret: 'keyboard cat' }));
+  	// app.use(securityManager.session());
+	app.use(securityManager.initialize());
+	app.use(securityManager.session());
 
     // development only
 	if (app.get('env') === 'development') {

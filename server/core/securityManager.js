@@ -14,17 +14,21 @@ module.exports = {
 
         // used to serialize the user for the session
         passport.serializeUser(function(user, done) {
+            console.log("serial")
             done(null, user.id);
         });
 
         // used to deserialize the user
-        passport.deserializeUser(function(id, done) {
+        passport.deserializeUser(function(id, done) {        
+            console.log("deser")
             User.findById(id, function(err, user) {
+                console.log("deser")
+                console.log(user)
                 done(err, user);
             });
         });
 
-        passport.use(this.STRATEGY.LOCAL_LOGIN,new LocalStrategy(
+        passport.use(this.STRATEGY.LOCAL_LOGIN, new LocalStrategy(
             function(username, password, done) {
 
                 User.findOne({ 
@@ -77,9 +81,12 @@ module.exports = {
 
         return passport.initialize();
     },
+    session: function() {
+        return passport.session();
+    },
     authenticate: function(strategy) {
         return passport.authenticate(strategy, {
-            session: false
+            session: true
         });        
     }
 };

@@ -26,7 +26,7 @@ module.exports = {
                 BODY : req.body
             }
         }
-        console.log(request)
+        // console.log(request)
         return next();
     }
 };

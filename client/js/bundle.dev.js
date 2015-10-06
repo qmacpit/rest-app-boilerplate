@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fc4ea4c98b38a93ed9ae"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9392560364d083436f55"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -9464,8 +9464,6 @@
 	  },
 
 	  updateAuth: function updateAuth(loggedIn, role) {
-	    console.log("updateAuth");
-	    console.log(role);
 	    this.setState({
 	      loggedIn: loggedIn,
 	      role: role
@@ -36599,7 +36597,7 @@
 	    this.onChange(false);
 	  },
 	  logout: function logout() {
-	    _toolboxAjax2['default'].get("/api/v1/logout").then((function () {
+	    return _toolboxAjax2['default'].get("/api/v1/logout").then((function () {
 	      localStorage.removeItem("auth_token");
 	      localStorage.removeItem("role");
 	      this.onChange(false);
@@ -38386,12 +38384,10 @@
 
 	  mixins: [_reactRouter.History],
 	  componentWillMount: function componentWillMount() {
-	    _servicesAuthService2['default'].logout().then(function () {
-	      this.history.replaceState(null, '/');
-	    });
+	    _servicesAuthService2['default'].logout();
 	  },
 	  render: function render() {
-	    return "";
+	    return _react2['default'].createElement('div', null);
 	  }
 	});
 	module.exports = exports['default'];
@@ -38861,7 +38857,7 @@
 	  displayName: 'adminMenu',
 
 	  selected: function selected(a) {
-	    console.log(a);
+	    // console.log(a)
 	  },
 
 	  render: function render() {
@@ -38886,7 +38882,7 @@
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
 	        { to: '/logout' },
-	        'items'
+	        'logout'
 	      )
 	    );
 	  }
@@ -38920,13 +38916,12 @@
 	  displayName: 'userMenu',
 
 	  setUpLink: function setUpLink(component) {
-	    console.log(this.props.routeParams);
 	    if (this.props.routeParams && this.props.routeParams.id) return "/admin/users/" + this.props.routeParams.id + component;
 	    return component;
 	  },
 
 	  selected: function selected(a) {
-	    console.log(a);
+	    // console.log(a)   
 	  },
 
 	  render: function render() {
@@ -38960,7 +38955,7 @@
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
 	        { to: '/logout' },
-	        'items'
+	        'logout'
 	      )
 	    );
 	  }
