@@ -52,6 +52,7 @@ function _initDevEnv() {
   new WebpackDevServer(webpack(config), {
      hot: true,
      historyApiFallback: true,
+     publicPath: '/',     
      proxy: {
        "*": "http://localhost:3000"
      }

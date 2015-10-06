@@ -7,7 +7,11 @@ export default React.createClass({
     var token = auth.getToken()
 
     return (
-      <h1>About</h1>
+      <div>
+        <h1>User Dashboard</h1>
+        <p>You made it!</p>
+        <p>{token}</p>
+      </div>
     )
   }
-})
+});

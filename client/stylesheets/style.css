@@ -1,3 +1,7 @@
 .list-group-item.active > td {
     background-color: pink;
 }
+
+a ~ a {
+	margin-left: 1em;
+}

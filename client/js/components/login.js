@@ -18,7 +18,7 @@ export default React.createClass({
     var email = findDOMNode(this.refs.email).value
     var pass = findDOMNode(this.refs.pass).value
 
-    auth.login(email, pass, (loggedIn) => {
+    auth.authenticate(email, pass, (loggedIn) => {
       if (!loggedIn)
         return this.setState({ error: true })
 
