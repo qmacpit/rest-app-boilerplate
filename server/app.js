@@ -20,7 +20,7 @@ app.listen(port, function () {
     	: connectionhq
 	)
   .then(_initDb)
-  // .then(_initDevEnv)
+  .then(_initDevEnv)
   .fail(function(err){
     console.log(err);
   })

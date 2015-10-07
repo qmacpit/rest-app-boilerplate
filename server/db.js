@@ -15,9 +15,8 @@ module.exports = function(dbURI) {
     });
 
     // If the connection throws an error
-    mongoose.connection.on('error',function (err) {
-        console.log('Mongoose default connection error: ' + err);
-        deferred.fail();
+    mongoose.connection.on('error',function (err) { 
+        deferred.reject('Mongoose default connection error: ' + err);
     });
 
     // When the connection is disconnected

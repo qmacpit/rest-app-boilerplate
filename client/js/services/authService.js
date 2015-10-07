@@ -3,9 +3,7 @@ import ajax from '../toolbox/ajax'
 
 module.exports = {
   loggedIn: function() {    
-    var token = this.getToken();
-    return token !== undefined 
-            && token !== null;
+    return this.getAuthState().isAuthenticated;
   },  
 
   getAuthState() {

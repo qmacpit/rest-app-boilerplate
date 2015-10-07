@@ -88,7 +88,7 @@ function requireAuth(nextState, replaceState) {
 
 React.render((
   <Router history={history}>
-    <Route path="/" component={App}>        
+    <Route path="/" component={App} onEnter={requireAuth} >        
       //ADMIN ROUTES           
       <Route path="admin" components={{main: AdminDashboard, sidebar:AdminMenu}} onEnter={requireAuth} />            
       <Route path="admin/users" components={{main: Users, sidebar:AdminMenu}} onEnter={requireAuth}> 
