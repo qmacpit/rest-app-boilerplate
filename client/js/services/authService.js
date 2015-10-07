@@ -8,6 +8,10 @@ module.exports = {
             && token !== null;
   },  
 
+  getAuthState() {
+    return appContext.userContext;
+  },
+
   getToken: function() {
     return localStorage.getItem("auth_token");
   },
@@ -36,6 +40,10 @@ module.exports = {
     .then(function(data){        
         localStorage.setItem("auth_token", data.auth_token);
         localStorage.setItem("role", data.role);
+        appContext.userContext = {
+          isAuthenticated: true,
+          role: data.role
+        };
         if (this.onChange)
             this.onChange(true, data.role);
         if (callback)
@@ -55,6 +63,10 @@ module.exports = {
       .then(function(){
           localStorage.removeItem("auth_token");
           localStorage.removeItem("role");
+          appContext.userContext = {
+            isAuthenticated: false,
+            role: null
+          };
           this.onChange(false);
       }.bind(this))
   }  

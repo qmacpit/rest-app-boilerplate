@@ -1,9 +1,19 @@
 module.exports = function(app) { 
 
-    app.get("/", function(req, res){        
-        // console.log(req.user)
+    app.get("/", function(req, res){      
+        console.log("===============")  
+        console.log(req.user)
+        console.log("===============")  
         // console.log(req.isAuthenticated())
-        res.render('index');
+        // console.log(req.session.regenerate());
+        res.render('index', {
+                appContext: {
+                    userContext: {
+                        isAuthenticated: req.isAuthenticated(),
+                        role: req.user ? req.user.role : null
+                    }
+                }
+            });
     });
 
     app.get("/dashboard", function(req, res){        

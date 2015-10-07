@@ -23,17 +23,15 @@ var App = React.createClass({
   mixins: [ History ],
 
   getInitialState() {
-    return {
-      loggedIn: auth.loggedIn()
-    }
+    return auth.getAuthState()    
   },
 
-  updateAuth(loggedIn, role) {    
+  updateAuth(isAuthenticated, role) {    
     this.setState({
-      loggedIn: loggedIn,
+      isAuthenticated: isAuthenticated,
       role: role
     })
-    if (!loggedIn) 
+    if (!isAuthenticated) 
        this.history.replaceState(null, '/login')
   },
 
@@ -43,7 +41,7 @@ var App = React.createClass({
 
   componentWillMount() {
     auth.onChange = this.updateAuth
-    auth.login()
+    // auth.login()
   },
 
   render() {
@@ -63,7 +61,7 @@ var App = React.createClass({
     return (      
       <div>    
         {
-          this.state.loggedIn 
+          this.state.isAuthenticated 
           ? (
             <div>
               <div className="Sidebar">
